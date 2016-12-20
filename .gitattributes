@@ -1,2 +1,4 @@
 *.1047 working-tree-encoding=ibm-1047 git-encoding=iso8859-1
 *.1140 working-tree-encoding=ibm-1140 git-encoding=iso8859-1
+*.1047u working-tree-encoding=ibm-1047 git-encoding=utf-8
+*.1140u working-tree-encoding=ibm-1140 git-encoding=utf-8
