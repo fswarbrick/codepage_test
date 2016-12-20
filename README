@@ -1,14 +1,13 @@
-﻿*.1047 working-tree-encoding=ibm-1047 git-encoding=iso8859-1
-*.1140 working-tree-encoding=ibm-1140 git-encoding=iso8859-1
-*.1047u working-tree-encoding=ibm-1047 git-encoding=utf-8
-*.1140u working-tree-encoding=ibm-1140 git-encoding=utf-8
-*.1047u2 working-tree-encoding=ibm-1047 git-encoding=utf-8
-*.1140u2 working-tree-encoding=ibm-1140 git-encoding=utf-8
-*.1047utf8 working-tree-encoding=utf-8 git-encoding=utf-8
-*.1140utf8 working-tree-encoding=utf-8 git-encoding=utf-8
+﻿*.1047		working-tree-encoding=ibm-1047	git-encoding=iso8859-1
+*.1140		working-tree-encoding=ibm-1140	git-encoding=iso8859-1
+*.1047u		working-tree-encoding=ibm-1047	git-encoding=utf-8
+*.1140u		working-tree-encoding=ibm-1140	git-encoding=utf-8
+*.1047u2	working-tree-encoding=ibm-1047	git-encoding=utf-8
+*.1140u2	working-tree-encoding=ibm-1140	git-encoding=utf-8
+*.utf8		working-tree-encoding=utf-8	git-encoding=utf-8
 
-|!^[¢¬€]
 
+  = efbbbf  (U+FEFF ZERO WIDTH NO-BREAK SPACE, a.k.a. UTF-8 byte order mark)
 | = 7c      (U+007C VERTICAL LINE)
 ! = 21      (U+0021 EXCLAMATION MARK)
 ^ = 5e      (U+005E CIRCUMFLEX ACCENT)
@@ -19,3 +18,14 @@
 ] = 5d      (U+005D RIGHT SQUARE BRACKET)
 <cr> = 0d   (U+000D CARRIAGE RETURN)
 <lf> = 0a   (U+000A LINE FEED)
+
+codes.1047 and codes 1140 contains
+|!^[]
+codes.1047u and codes 1140u
+|!^[¢¬]
+
+codes.1047u2 and codes 1140u2
+|!^[¢¬€]
+
+codes.1047utf8 and codes 1140utf8
+|!^[¢¬€] prefixed by UTF-8 byte order mark
