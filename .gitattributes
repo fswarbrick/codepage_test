@@ -1,7 +1,9 @@
-*.1047		working-tree-encoding=ibm-1047	git-encoding=iso8859-1
-*.1140		working-tree-encoding=ibm-1140	git-encoding=iso8859-1
-*.1047u		working-tree-encoding=ibm-1047	git-encoding=utf-8
-*.1140u		working-tree-encoding=ibm-1140	git-encoding=utf-8
-*.1047u2	working-tree-encoding=ibm-1047	git-encoding=utf-8
-*.1140u2	working-tree-encoding=ibm-1140	git-encoding=utf-8
-*.utf8		working-tree-encoding=utf-8	git-encoding=utf-8
+*.1047  working-tree-encoding=ibm-1047 git-encoding=iso8859-1
+*.1140  working-tree-encoding=ibm-1140 git-encoding=iso8859-1
+*.1047x  working-tree-encoding=ibm-1140 git-encoding=iso8859-1
+*.1140x  working-tree-encoding=ibm-1140 git-encoding=iso8859-1
+*.1047u  working-tree-encoding=ibm-1047 git-encoding=utf-8
+*.1140u  working-tree-encoding=ibm-1140 git-encoding=utf-8
+*.1047u2 working-tree-encoding=ibm-1047 git-encoding=utf-8
+*.1140u2 working-tree-encoding=ibm-1140 git-encoding=utf-8
+*.utf8  working-tree-encoding=utf-8 git-encoding=utf-8
