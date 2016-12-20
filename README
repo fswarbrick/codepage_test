@@ -1,0 +1,21 @@
+﻿*.1047 working-tree-encoding=ibm-1047 git-encoding=iso8859-1
+*.1140 working-tree-encoding=ibm-1140 git-encoding=iso8859-1
+*.1047u working-tree-encoding=ibm-1047 git-encoding=utf-8
+*.1140u working-tree-encoding=ibm-1140 git-encoding=utf-8
+*.1047u2 working-tree-encoding=ibm-1047 git-encoding=utf-8
+*.1140u2 working-tree-encoding=ibm-1140 git-encoding=utf-8
+*.1047utf8 working-tree-encoding=utf-8 git-encoding=utf-8
+*.1140utf8 working-tree-encoding=utf-8 git-encoding=utf-8
+
+|!^[¢¬€]
+
+| = 7c      (U+007C VERTICAL LINE)
+! = 21      (U+0021 EXCLAMATION MARK)
+^ = 5e      (U+005E CIRCUMFLEX ACCENT)
+[ = 5b      (U+005B LEFT SQUARE BRACKET)
+¢ = c2a2    (U+00A2 CENT SIGN)
+¬ = c2ac    (U+00AC NOT SIGN)
+€ = e282ac  (U+20AC EURO SIGN)
+] = 5d      (U+005D RIGHT SQUARE BRACKET)
+<cr> = 0d   (U+000D CARRIAGE RETURN)
+<lf> = 0a   (U+000A LINE FEED)
