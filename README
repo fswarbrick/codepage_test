@@ -69,7 +69,7 @@ codes.utf8 contains:                   |!^[¢¬€] prefixed by UTF-8 byte order
 
 codes.1140x contains:                  |!^[¢¬€]
 
-The last one (*.1140x) is an attempt at allowing a mapping of the CENT SIGN and the NOT SIGN between IBM-1140 and ISO-8859-1.  Even though the wikipedia page for ISO-8859-1 (https://en.wikipedia.org/wiki/ISO/IEC_8859-1) shows the CENT SIGN in position A2 and the NOT SIGN in position AC this doesn't seem to work here...  I did not try using EBCDIC code page 1047 but I assume it has the same issue.
+The last one (*.1140x) is an attempt at allowing a mapping of the CENT SIGN and the NOT SIGN between IBM-1140 and ISO-8859-1.  While this seems to work, if you view the resulting file in the Github UI representation these two symbols are replaced by symbols that I believe represent "replacement characters".  I assume this is because the Github codepage is UTF-8, not ISO-8859-1.  For this reason alone it seems to me to be reasonable that all EBCDIC source be mapped to UTF-8 rather than ISO-8859-1.
 
 Note that immediately upon pulling the repository the codes.1047u2 file is already considered to be modified from its source.  This is because the source contains the euro sign and code page 1047 does not support the euro sign, so it is replaced with x'3F'.  Since x'3F' does not map back to the UTF-8 euro sign this causes the difference between the two.
 
