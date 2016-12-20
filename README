@@ -1,13 +1,14 @@
 ﻿The only point of this repository is to demonstrate how to manage codepage converstions using the z/OS port of git.
 
 The .gitattributes file has the following lines which direct git on z/OS how to convert (or not) data stored in a git repository.
-*.1047		working-tree-encoding=ibm-1047	git-encoding=iso8859-1
-*.1140		working-tree-encoding=ibm-1140	git-encoding=iso8859-1
-*.1047u		working-tree-encoding=ibm-1047	git-encoding=utf-8
-*.1140u		working-tree-encoding=ibm-1140	git-encoding=utf-8
-*.1047u2	working-tree-encoding=ibm-1047	git-encoding=utf-8
-*.1140u2	working-tree-encoding=ibm-1140	git-encoding=utf-8
-*.utf8		working-tree-encoding=utf-8	git-encoding=utf-8
+*.1047	 working-tree-encoding=ibm-1047 git-encoding=iso8859-1
+*.1140	 working-tree-encoding=ibm-1140 git-encoding=iso8859-1
+*.1047u	 working-tree-encoding=ibm-1047 git-encoding=utf-8
+*.1140u	 working-tree-encoding=ibm-1140 git-encoding=utf-8
+*.1047u2 working-tree-encoding=ibm-1047 git-encoding=utf-8
+*.1140u2 working-tree-encoding=ibm-1140 git-encoding=utf-8
+*.utf8   working-tree-encoding=utf-8    git-encoding=utf-8
+*.1140x  working-tree-encoding=ibm-1140 git-encoding=iso8859-1
 
 The first two cause git on z/OS to interpret a file with the associated suffixes as being ISO-8859-1 (Latin alphabet No. 1; identical to 7-bit ASCII) encoded files.
 It also causes git on z/OS to:
@@ -19,28 +20,32 @@ It also causes git on z/OS to:
 - Convert those files from UTF-8 to the associated EBCDIC code page (1047 or 1140).
 - Tag the files on z/OS with the appropriate associated EBCDIC code page (IBM-1047 or IBM-1140).
 
-The last one causes git on z/OS to interpret a file with the associated suffix as being a UTF-8 encoded file.
+The next one (*.utf8) causes git on z/OS to interpret a file with the associated suffix as being a UTF-8 encoded file.
 It also causes git on z/OS to:
 - Not convert it; in other words, leave it encoded as UTF-8
 - Tag the files on z/OS with the UTF-8 code page.
 
+The last one (*.1140x) is the same as for *.1140, but the file itself (see below) contains characters that are "not present" in the ISO-8859-1 codeset.  See below for more details.
+
 Since the README and .gitattributes files do not match any of the lines in .gitattributes they are interpreted as ISO-8859-1, not translated, and tagged ISO8859-1.
 
 $ ls -alT
-                    drwxr-xr-x   3 DVFJS    DEPT9971    8192 Dec 20 15:13 .             
+total 96                                                                                
+                    drwxr-xr-x   3 DVFJS    DEPT9971    8192 Dec 20 15:42 .             
                     drwxr-xr-x   9 DVFJS    DEPT9971    8192 Dec 20 10:41 ..            
-                    drwxr-xr-x   8 DVFJS    DEPT9971    8192 Dec 20 15:13 .git          
-t ISO8859-1   T=on  -rw-r--r--   1 DVFJS    DEPT9971     415 Dec 20 15:13 .gitattributes
-t ISO8859-1   T=on  -rw-r--r--   1 DVFJS    DEPT9971    1062 Dec 20 15:13 README        
+                    drwxr-xr-x   8 DVFJS    DEPT9971    8192 Dec 20 15:42 .git          
+t ISO8859-1   T=on  -rw-r--r--   1 DVFJS    DEPT9971     541 Dec 20 15:29 .gitattributes
+t ISO8859-1   T=on  -rw-r--r--   1 DVFJS    DEPT9971    3561 Dec 20 15:42 README        
 t IBM-1047    T=on  -rw-r--r--   1 DVFJS    DEPT9971       6 Dec 20 10:51 codes.1047    
 t IBM-1047    T=on  -rw-r--r--   1 DVFJS    DEPT9971       8 Dec 20 11:45 codes.1047u   
-t IBM-1047    T=on  -rw-r--r--   1 DVFJS    DEPT9971       9 Dec 20 13:18 codes.1047u2  
+t IBM-1047    T=on  -rw-r--r--   1 DVFJS    DEPT9971       9 Dec 20 15:42 codes.1047u2  
 t IBM-1140    T=on  -rw-r--r--   1 DVFJS    DEPT9971       6 Dec 20 10:51 codes.1140    
 t IBM-1140    T=on  -rw-r--r--   1 DVFJS    DEPT9971       8 Dec 20 11:41 codes.1140u   
 t IBM-1140    T=on  -rw-r--r--   1 DVFJS    DEPT9971       9 Dec 20 13:18 codes.1140u2  
+t IBM-1140    T=on  -rw-r--r--   1 DVFJS    DEPT9971       8 Dec 20 15:28 codes.1140x   
 t UTF-8       T=on  -rw-r--r--   1 DVFJS    DEPT9971      16 Dec 20 15:13 codes.utf8    
 
-The following characters are used in the various "codes" files:
+The following characters (followed by their UTF-8 representation) are used in the various "codes" files:
 
 = efbbbf    (U+FEFF ZERO WIDTH NO-BREAK SPACE, a.k.a. UTF-8 byte order mark)
 | = 7c      (U+007C VERTICAL LINE)
@@ -53,7 +58,30 @@ The following characters are used in the various "codes" files:
 ] = 5d      (U+005D RIGHT SQUARE BRACKET)
 
 codes.1047 and codes.1140 contain:     |!^[]
-- only contains codes that are in both the 7-bit
+- only contains codes that are in both the 7-bit ASCII codeset.
+
 codes.1047u and codes.1140u contain:   |!^[¢¬]
+- contains a few additional 'standard' EBCDIC symboms (CENT SIGN and NOT SIGN)
+
 codes.1047u2 and codes.1140u2 contain: |!^[¢¬€]
+
 codes.utf8 contains:                   |!^[¢¬€] prefixed by UTF-8 byte order mark
+
+codes.1140x contains:                  |!^[¢¬€]
+
+The last one (*.1140x) is an attempt at allowing a mapping of the CENT SIGN and the NOT SIGN between IBM-1140 and ISO-8859-1.  Even though the wikipedia page for ISO-8859-1 (https://en.wikipedia.org/wiki/ISO/IEC_8859-1) shows the CENT SIGN in position A2 and the NOT SIGN in position AC this doesn't seem to work here...  I did not try using EBCDIC code page 1047 but I assume it has the same issue.
+
+Note that immediately upon pulling the repository the codes.1047u2 file is already considered to be modified from its source.  This is because the source contains the euro sign and code page 1047 does not support the euro sign, so it is replaced with x'3F'.  Since x'3F' does not map back to the UTF-8 euro sign this causes the difference between the two.
+
+$ git diff
+error: cannot run less: EDC5129I No such file or directory.
+diff --git a/codes.1047u2 b/codes.1047u2                   
+index 18a1270..e5698af 100644                              
+--- a/codes.1047u2                                         
++++ b/codes.1047u2                                         
+@@ -1 +1 @@                                                
+-|!^ÝÂ¢Â¬â-¬¨                                              
++|!^ÝÂ¢Â¬-¨                                                
+
+So in the end, it appears to me that conversion between both EBCDIC code pages 1047 and 1140 to ISO-8859-1 works as long as the particular character is represented in both code sets.
+Additionally, UTF-8 works for all (I assume) codes in either of the EBCDIC code sets.  Of course if you edit the file "off host" (outside of z/OS) to include a UTF-8 character that cannot be mapped to the associated EBCDIC code page then you will have issues.
